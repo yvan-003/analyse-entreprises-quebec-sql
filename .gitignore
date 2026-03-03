@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Local raw datasets (too large for GitHub)
+JeuDonnees/
+data/raw/*.csv
+data/raw/*.zip
+data/raw/*.7z
+
+# Local database artifacts
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment files
+.env
