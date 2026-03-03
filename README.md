@@ -66,3 +66,65 @@ Detailed assignment brief: `docs/ENONCE_PROJET_REQ.md`.
 - Regional sector concentration findings: TBD
 - Business longevity patterns: TBD
 - Data quality improvements after cleaning: TBD
+
+## Francais
+
+### Contexte du projet
+Projet SQL base sur les donnees ouvertes du Registre des entreprises du Quebec (REQ).
+Objectif: produire un portrait economique reproductible des entreprises actives vs radiees par secteur (SCIAN) et par geographie.
+Enonce detaille du projet: `docs/ENONCE_PROJET_REQ.md`.
+
+### Questions business
+1. Quels secteurs dominent par region ?
+2. Quel est l age moyen des entreprises actives par region et secteur ?
+3. Quelle est la repartition actives vs radiees par region et secteur ?
+
+### Perimetre et source des donnees
+- Source: Registre des entreprises du Quebec (REQ), Donnees Quebec.
+- Entites principales: entreprise, etablissement, noms, et table de reference des codes.
+- Inventaire local des donnees: `data/README_data.md`.
+
+### Stack technique
+- PostgreSQL
+- SQL (CTE, window functions, views, indexation)
+- Optionnel: Power BI pour la visualisation finale
+
+### Methodologie
+1. Ingestion brute en tables de staging.
+2. Controles qualite (volumetrie, nulls, doublons).
+3. Nettoyage et standardisation des regles metier.
+4. Modelisation analytique pour le reporting region/secteur.
+5. Vues reutilisables et optimisation avec index.
+
+### Structure du depot
+- `data/` : notes data et contexte d ingestion
+- `sql/01_schema.sql` : modele de tables (staging + analytique)
+- `sql/02_ingestion.sql` : chargement CSV et checks d ingestion
+- `sql/03_cleaning.sql` : normalisation et variables derivees
+- `sql/04_analysis.sql` : requetes d analyse metier
+- `sql/05_views_indexes.sql` : vues reutilisables et strategie d index
+- `docs/` : schema, sorties de requetes et captures
+
+### Ordre d execution
+1. `sql/01_schema.sql`
+2. `sql/02_ingestion.sql`
+3. `sql/03_cleaning.sql`
+4. `sql/04_analysis.sql`
+5. `sql/05_views_indexes.sql`
+
+### Livrables
+- Dataset analytique propre pour le reporting
+- Pack de requetes SQL repondant aux questions metier
+- Vues reutilisables pour analyses recurrentes
+- Notes de performance (EXPLAIN avant/apres index)
+
+### Resultats (a mettre a jour)
+- Nombre total d entreprises traitees: TBD
+- Nombre d entreprises actives: TBD
+- Ratio d entreprises radiees: TBD
+- Age moyen des entreprises actives: TBD
+
+### Insights cles (a mettre a jour)
+- Concentration sectorielle par region: TBD
+- Tendances de longevite des entreprises: TBD
+- Amelioration de la qualite des donnees apres nettoyage: TBD
