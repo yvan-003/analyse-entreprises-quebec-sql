@@ -9,11 +9,6 @@ Le dossier local `JeuDonnees/` contient actuellement:
 - `FusionScissions.csv`
 - `ContinuationsTransformations.csv`
 
-## Important
-- Ces fichiers sont volumineux et ne doivent pas etre pushes tels quels sur GitHub.
-- Conserver les donnees brutes en local.
-- Option recommandee pour GitHub: documenter la source et garder seulement scripts + doc.
-
 ## Source officielle
 - Donnees Quebec: REQ (Registre des entreprises)
 
