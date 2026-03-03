@@ -10,6 +10,7 @@ English and French versions are available below.
 ### Project Overview
 SQL analytics project based on Quebec Enterprise Registry (REQ) open data.
 The objective is to build a reproducible economic profile of businesses by sector (SCIAN) and region.
+Detailed assignment brief: `docs/ENONCE_PROJET_REQ.md`.
 
 ### Business Questions
 1. Which sectors dominate each region?
@@ -49,6 +50,7 @@ The objective is to build a reproducible economic profile of businesses by secto
 ### Contexte du projet
 Projet SQL base sur les donnees ouvertes du Registre des entreprises du Quebec (REQ).
 L objectif est de produire un portrait economique reproductible des entreprises par secteur (SCIAN) et par region.
+Enonce detaille du projet: `docs/ENONCE_PROJET_REQ.md`.
 
 ### Questions business
 1. Quels secteurs dominent dans chaque region ?
