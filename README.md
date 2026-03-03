@@ -1,48 +1,59 @@
-# Portrait economique des entreprises du Quebec (SQL)
+# Quebec Enterprise Registry SQL Analytics
 
-Projet portfolio SQL pour demonstrer des competences de Data Analyste:
-- ingestion de donnees brutes
-- controle qualite
-- nettoyage
-- analyse business avec SQL avance
-- restitution reproductible (README + scripts)
+SQL analytics project built on Quebec Enterprise Registry (REQ) open data.
+Goal: produce a reproducible economic profile of active vs inactive businesses by sector (SCIAN) and geography.
 
-## Questions business cibles
-1. Quels secteurs (SCIAN) dominent par region ?
-2. Quel est l age moyen des entreprises actives par region et secteur ?
-3. Quelle est la repartition active vs radiee par region et secteur ?
+## Business Objectives
+1. Identify the sectors that dominate each region.
+2. Measure average business age by region and sector.
+3. Compare active vs inactive business distribution across regions and sectors.
 
-## KPIs a publier
-- Nombre total d entreprises
-- Nombre d entreprises actives
-- Pourcentage d entreprises radiees
-- Age moyen des entreprises actives
+## Scope and Data Source
+- Source: Registre des entreprises du Quebec (REQ), Donnees Quebec.
+- Main entities: enterprise, establishment, names, and reference domain values.
+- Local data inventory and notes: `data/README_data.md`.
 
-## Source des donnees
-- Registre des entreprises du Quebec (REQ)
-- Voir [data/README_data.md](data/README_data.md) pour le detail des fichiers
+## Technical Stack
+- PostgreSQL
+- SQL (CTE, window functions, views, indexing)
+- Optional: Power BI for final visualization layer
 
-## Structure du projet
-- `data/` : documentation data + echantillons eventuels
-- `sql/` : scripts SQL (schema, ingestion, cleaning, analyses, views/indexes)
-- `docs/` : schema, captures de resultats, notes
+## Methodology
+1. Raw ingestion into staging tables.
+2. Data quality controls (row counts, null checks, duplicate checks).
+3. Cleaning and business-rule standardization.
+4. Analytical modeling for regional and sector-level reporting.
+5. Reusable views and performance tuning with indexes.
 
-## Ordre d execution SQL
+## Repository Structure
+- `data/` : data notes and ingestion context
+- `sql/01_schema.sql` : table design (staging + analytics)
+- `sql/02_ingestion.sql` : CSV loading and ingestion checks
+- `sql/03_cleaning.sql` : normalization and feature engineering
+- `sql/04_analysis.sql` : business analysis queries
+- `sql/05_views_indexes.sql` : reusable views and indexing strategy
+- `docs/` : model diagram, query outputs, and screenshots
+
+## Execution Order
 1. `sql/01_schema.sql`
 2. `sql/02_ingestion.sql`
 3. `sql/03_cleaning.sql`
 4. `sql/04_analysis.sql`
 5. `sql/05_views_indexes.sql`
 
-## Mode apprentissage (progressif)
-Tu ecris les requetes. Je fais la revue technique a chaque etape:
-- logique SQL
-- qualite des filtres
-- performance
-- lisibilite et structure
+## Deliverables
+- Clean analytical dataset for business reporting
+- SQL query pack answering key business questions
+- Reusable views for recurring analysis
+- Performance notes (EXPLAIN before/after indexes)
 
-## Prochaine etape
-Commencer par `sql/01_schema.sql`:
-- definir les tables de staging
-- definir les tables nettoyees (dim/fact ou table clean)
-- preciser les cles primaires / cles de jointure
+## Results (to be updated)
+- Total enterprises processed: TBD
+- Active enterprises: TBD
+- Inactive enterprises ratio: TBD
+- Average business age: TBD
+
+## Key Insights (to be updated)
+- Regional sector concentration findings: TBD
+- Business longevity patterns: TBD
+- Data quality improvements after cleaning: TBD
