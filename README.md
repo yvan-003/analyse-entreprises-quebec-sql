@@ -12,75 +12,57 @@ SQL analytics project based on Quebec Enterprise Registry (REQ) open data.
 The objective is to build a reproducible economic profile of businesses by sector (SCIAN) and region.
 Detailed assignment brief: `docs/ENONCE_PROJET_REQ.md`.
 
-### Business Questions
-1. Which sectors dominate each region?
-2. What is the average age of active businesses by region and sector?
-3. What is the active vs inactive business distribution across regions and sectors?
+## Business Objectives
+1. Identify the sectors that dominate each region.
+2. Measure average business age by region and sector.
+3. Compare active vs inactive business distribution across regions and sectors.
 
-### KPIs
-- Total number of businesses
-- Number of active businesses
-- Share of inactive businesses
-- Average age of active businesses
+## Scope and Data Source
+- Source: Registre des entreprises du Quebec (REQ), Donnees Quebec.
+- Main entities: enterprise, establishment, names, and reference domain values.
+- Local data inventory and notes: `data/README_data.md`.
 
-### Data Source
-- Quebec Enterprise Registry (REQ)
-- Data notes and file inventory: `data/README_data.md`
+## Technical Stack
+- PostgreSQL
+- SQL (CTE, window functions, views, indexing)
+- Optional: Power BI for final visualization layer
 
-### Repository Structure
-- `data/` : data notes and local data context
-- `sql/` : schema, ingestion, cleaning, analysis, views/indexes
-- `docs/` : model diagrams, query outputs, screenshots
+## Methodology
+1. Raw ingestion into staging tables.
+2. Data quality controls (row counts, null checks, duplicate checks).
+3. Cleaning and business-rule standardization.
+4. Analytical modeling for regional and sector-level reporting.
+5. Reusable views and performance tuning with indexes.
 
-### SQL Execution Order
+## Repository Structure
+- `data/` : data notes and ingestion context
+- `sql/01_schema.sql` : table design (staging + analytics)
+- `sql/02_ingestion.sql` : CSV loading and ingestion checks
+- `sql/03_cleaning.sql` : normalization and feature engineering
+- `sql/04_analysis.sql` : business analysis queries
+- `sql/05_views_indexes.sql` : reusable views and indexing strategy
+- `docs/` : model diagram, query outputs, and screenshots
+
+## Execution Order
 1. `sql/01_schema.sql`
 2. `sql/02_ingestion.sql`
 3. `sql/03_cleaning.sql`
 4. `sql/04_analysis.sql`
 5. `sql/05_views_indexes.sql`
 
-### Deliverables
-- Clean analytical dataset
+## Deliverables
+- Clean analytical dataset for business reporting
 - SQL query pack answering key business questions
-- Reusable views for reporting
-- Performance notes (EXPLAIN before/after indexing)
+- Reusable views for recurring analysis
+- Performance notes (EXPLAIN before/after indexes)
 
-## Francais
+## Results (to be updated)
+- Total enterprises processed: TBD
+- Active enterprises: TBD
+- Inactive enterprises ratio: TBD
+- Average business age: TBD
 
-### Contexte du projet
-Projet SQL base sur les donnees ouvertes du Registre des entreprises du Quebec (REQ).
-L objectif est de produire un portrait economique reproductible des entreprises par secteur (SCIAN) et par region.
-Enonce detaille du projet: `docs/ENONCE_PROJET_REQ.md`.
-
-### Questions business
-1. Quels secteurs dominent dans chaque region ?
-2. Quel est l age moyen des entreprises actives par region et secteur ?
-3. Quelle est la repartition entreprises actives vs radiees par region et secteur ?
-
-### KPIs
-- Nombre total d entreprises
-- Nombre d entreprises actives
-- Part d entreprises radiees
-- Age moyen des entreprises actives
-
-### Source des donnees
-- Registre des entreprises du Quebec (REQ)
-- Notes data et inventaire local: `data/README_data.md`
-
-### Structure du depot
-- `data/` : notes sur les donnees et contexte local
-- `sql/` : schema, ingestion, nettoyage, analyse, vues/index
-- `docs/` : schema de donnees, sorties SQL, captures
-
-### Ordre d execution SQL
-1. `sql/01_schema.sql`
-2. `sql/02_ingestion.sql`
-3. `sql/03_cleaning.sql`
-4. `sql/04_analysis.sql`
-5. `sql/05_views_indexes.sql`
-
-### Livrables
-- Dataset analytique nettoye
-- Pack de requetes SQL orientees metier
-- Vues reutilisables pour reporting
-- Notes de performance (EXPLAIN avant/apres index)
+## Key Insights (to be updated)
+- Regional sector concentration findings: TBD
+- Business longevity patterns: TBD
+- Data quality improvements after cleaning: TBD
