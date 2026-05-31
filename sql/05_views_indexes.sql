@@ -1,12 +1,10 @@
 -- 05_views_indexes.sql
--- Objectif: vues reutilisables + optimisation + mini validation perf
+-- Vues metier + index + perf
 
 \echo '=== DEBUT VIEWS + INDEXES ==='
 \timing on
 
--- =========================================================
--- 1) INDEXES (if not exists)
--- =========================================================
+-- 1) Index
 
 -- Filtres frequents
 CREATE INDEX IF NOT EXISTS idx_ec_statut_code ON entreprise_clean(statut_code);
@@ -15,12 +13,10 @@ CREATE INDEX IF NOT EXISTS idx_ec_region_id ON entreprise_clean(region_id);
 CREATE INDEX IF NOT EXISTS idx_ec_date_constitution ON entreprise_clean(date_constitution);
 CREATE INDEX IF NOT EXISTS idx_ec_age_classe ON entreprise_clean(age_classe);
 
--- Jointure utile pour les noms
+-- Support jointure noms
 CREATE INDEX IF NOT EXISTS idx_sn_neq_stat_typ ON stg_nom(neq, stat_nom, typ_nom_assuj);
 
--- =========================================================
--- 2) VIEWS METIER
--- =========================================================
+-- 2) Views
 
 DROP VIEW IF EXISTS vw_entreprises_actives;
 CREATE VIEW vw_entreprises_actives AS
@@ -88,9 +84,7 @@ WHERE ds.is_active = TRUE
   AND ec.age_entreprise IS NOT NULL
 GROUP BY 1;
 
--- =========================================================
--- 3) MINI VALIDATION PERFORMANCE
--- =========================================================
+-- 3) Validation perf
 
 \echo '--- PERF 1: count actives par region (EXPLAIN ANALYZE) ---'
 EXPLAIN ANALYZE
@@ -117,9 +111,7 @@ WHERE ds.is_active = TRUE
 GROUP BY dr.region_name
 ORDER BY age_moyen DESC;
 
--- =========================================================
--- 4) CHECKS RAPIDES
--- =========================================================
+-- 4) Checks rapides
 
 \echo '--- CHECK VIEWS ---'
 SELECT COUNT(*) AS nb_actives FROM vw_entreprises_actives;

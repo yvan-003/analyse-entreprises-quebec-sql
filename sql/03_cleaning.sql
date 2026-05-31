@@ -1,20 +1,20 @@
 -- 03_cleaning.sql
--- Objectif: transformer le brut (staging) en table analytique propre
+-- Construction couche analytique
 
 \echo '=== DEBUT CLEANING ==='
 \timing on
 
 BEGIN;
 
--- 1) Rejouable: on vide les tables analytiques avant de reconstruire
+-- Reset analytique
 TRUNCATE TABLE entreprise_clean;
 TRUNCATE TABLE dim_region, dim_secteur, dim_statut RESTART IDENTITY CASCADE;
 
--- 2) On ajoute la colonne classe d age si elle n existe pas encore
+-- Ajout colonne age_classe (si absente)
 ALTER TABLE entreprise_clean
 ADD COLUMN IF NOT EXISTS age_classe TEXT;
 
--- 3) Dimension statut (code -> libelle + actif/inactif)
+-- Dimension statut
 INSERT INTO dim_statut (statut_code, statut_label, is_active)
 SELECT DISTINCT
     TRIM(cod_dom_val) AS statut_code,
@@ -24,12 +24,12 @@ FROM stg_domaine_valeur
 WHERE TRIM(typ_dom_val) = 'STAT_IMMAT'
   AND NULLIF(TRIM(cod_dom_val), '') IS NOT NULL;
 
--- Valeur de secours pour statuts manquants
+-- Fallback statut
 INSERT INTO dim_statut (statut_code, statut_label, is_active)
 VALUES ('UNK', 'Statut inconnu', FALSE)
 ON CONFLICT (statut_code) DO NOTHING;
 
--- 4) Dimension secteur
+-- Dimension secteur
 INSERT INTO dim_secteur (secteur_code, secteur_label)
 SELECT DISTINCT
     TRIM(cod_dom_val) AS secteur_code,
@@ -38,24 +38,24 @@ FROM stg_domaine_valeur
 WHERE TRIM(typ_dom_val) = 'ACT_ECON'
   AND NULLIF(TRIM(cod_dom_val), '') IS NOT NULL;
 
--- Valeur de secours pour secteurs manquants
+-- Fallback secteur
 INSERT INTO dim_secteur (secteur_code, secteur_label)
 VALUES ('UNK', 'Secteur inconnu')
 ON CONFLICT (secteur_code) DO NOTHING;
 
--- 5) Dimension region (MVP: basee sur nom_loclt_consti)
+-- Dimension region
 INSERT INTO dim_region (region_name)
 SELECT DISTINCT
     UPPER(TRIM(nom_loclt_consti)) AS region_name
 FROM stg_entreprise
 WHERE NULLIF(TRIM(nom_loclt_consti), '') IS NOT NULL;
 
--- Valeur de secours si localisation absente
+-- Fallback region
 INSERT INTO dim_region (region_name)
 VALUES ('[INCONNUE]')
 ON CONFLICT (region_name) DO NOTHING;
 
--- 6) Construction de la table analytique finale
+-- Build entreprise_clean
 WITH nom_priorise AS (
     SELECT
         TRIM(neq) AS neq,
@@ -153,7 +153,7 @@ FROM entreprise_enrichie ee;
 
 COMMIT;
 
--- 7) Checks rapides apres cleaning
+-- Checks post-cleaning
 \echo '=== CONTROLES CLEANING ==='
 SELECT COUNT(*) AS nb_entreprises_clean FROM entreprise_clean;
 

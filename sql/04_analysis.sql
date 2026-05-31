@@ -1,12 +1,10 @@
 -- 04_analysis.sql
--- Objectif: repondre aux questions business avec requetes presentables
+-- Requetes business
 
 \echo '=== DEBUT ANALYSE ==='
 \timing on
 
--- =========================================================
--- A) SEGMENTATION REGION + SECTEUR
--- =========================================================
+-- A) Segmentation region / secteur
 
 \echo '--- A1: Nombre d entreprises actives par region ---'
 SELECT
@@ -32,9 +30,7 @@ GROUP BY dsec.secteur_label
 ORDER BY nb_entreprises_actives DESC
 LIMIT 10;
 
--- =========================================================
--- B) LONGEVITE
--- =========================================================
+-- B) Longevite
 
 \echo '--- B1: Age moyen des entreprises actives par region ---'
 SELECT
@@ -67,9 +63,7 @@ ORDER BY
         ELSE 5
     END;
 
--- =========================================================
--- C) CLASSEMENTS (WINDOW FUNCTIONS)
--- =========================================================
+-- C) Classements (window functions)
 
 \echo '--- C1: Top 5 secteurs par region (actives) ---'
 WITH secteur_region AS (
@@ -111,7 +105,7 @@ WHERE rang_region <= 5
 ORDER BY region_name, rang_region, nb_entreprises DESC;
 
 \echo '--- C2: Top 20 entreprises (approx.) par taille d effectif ---'
--- On decode cod_intval_emplo_que via stg_domaine_valeur
+-- Decode intervalle_employes
 SELECT
     ec.neq,
     ec.nom_entreprise,
@@ -148,9 +142,7 @@ ORDER BY
     ec.nom_entreprise
 LIMIT 20;
 
--- =========================================================
--- D) QUALITE / NETTOYAGE MESURABLE
--- =========================================================
+-- D) Qualite des donnees
 
 \echo '--- D1: Nulls date de constitution (avant vs apres) ---'
 SELECT

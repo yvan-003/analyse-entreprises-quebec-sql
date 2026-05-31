@@ -1,19 +1,19 @@
 -- 02_ingestion.sql
--- Objectif: charger les CSV dans les tables staging + controles qualite de base
+-- Chargement CSV + checks de base
 
 \echo '=== DEBUT INGESTION ==='
 \timing on
 
--- 1) Rejouable: on vide les tables staging avant rechargement
+-- Reset staging
 TRUNCATE TABLE stg_entreprise, stg_etablissements, stg_nom, stg_domaine_valeur;
 
--- 2) Chargement des CSV (client-side avec \copy)
+-- Load CSV
 \copy stg_entreprise     FROM '/Users/paulyvanseka/Documents/projet sql/JeuDonnees/Entreprise.csv'     WITH (FORMAT csv, HEADER true, ENCODING 'UTF8');
 \copy stg_etablissements FROM '/Users/paulyvanseka/Documents/projet sql/JeuDonnees/Etablissements.csv' WITH (FORMAT csv, HEADER true, ENCODING 'UTF8');
 \copy stg_nom            FROM '/Users/paulyvanseka/Documents/projet sql/JeuDonnees/Nom.csv'            WITH (FORMAT csv, HEADER true, ENCODING 'UTF8');
 \copy stg_domaine_valeur FROM '/Users/paulyvanseka/Documents/projet sql/JeuDonnees/DomaineValeur.csv'  WITH (FORMAT csv, HEADER true, ENCODING 'UTF8');
 
--- 3) Controle volumetrie
+-- Row counts
 \echo '=== VOLUMETRIE ==='
 SELECT 'stg_entreprise' AS table_name, COUNT(*) AS nb_lignes FROM stg_entreprise
 UNION ALL
@@ -24,7 +24,7 @@ UNION ALL
 SELECT 'stg_domaine_valeur', COUNT(*) FROM stg_domaine_valeur
 ORDER BY table_name;
 
--- 4) Controle nulls sur cles critiques
+-- Nulls sur cles
 \echo '=== NULLS CRITIQUES ==='
 SELECT 'stg_entreprise.neq_null' AS check_name, COUNT(*) AS nb
 FROM stg_entreprise
@@ -38,7 +38,7 @@ SELECT 'stg_etablissements.neq_null', COUNT(*)
 FROM stg_etablissements
 WHERE NULLIF(TRIM(neq), '') IS NULL;
 
--- 5) Controle doublons sur la table qui devrait etre 1 ligne par entreprise
+-- Doublons NEQ
 \echo '=== DOUBLONS NEQ (stg_entreprise) ==='
 SELECT COUNT(*) AS nb_neq_en_doublon
 FROM (
@@ -48,7 +48,7 @@ FROM (
     HAVING COUNT(*) > 1
 ) d;
 
--- 6) Controle distribution des statuts (utile pour la suite business)
+-- Distribution statuts
 \echo '=== DISTRIBUTION STATUTS ==='
 SELECT cod_stat_immat, COUNT(*) AS nb
 FROM stg_entreprise

@@ -1,9 +1,9 @@
 -- 01_schema.sql
--- Projet REQ - Etape 1: definir le schema (staging + analytique)
+-- REQ: schema staging + analytique
 
 BEGIN;
 
--- 0) Rejouable: on supprime les objets si ils existent deja
+-- Reset
 DROP TABLE IF EXISTS entreprise_clean CASCADE;
 DROP TABLE IF EXISTS dim_region CASCADE;
 DROP TABLE IF EXISTS dim_secteur CASCADE;
@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS stg_nom CASCADE;
 DROP TABLE IF EXISTS stg_etablissements CASCADE;
 DROP TABLE IF EXISTS stg_entreprise CASCADE;
 
--- 1) Staging tables: brut, colonnes en TEXT pour eviter les erreurs d import
+-- Staging (brut)
 CREATE TABLE stg_entreprise (
     neq TEXT,
     ind_fail TEXT,
@@ -90,7 +90,7 @@ CREATE TABLE stg_domaine_valeur (
     val_dom_fran TEXT
 );
 
--- 2) Dimensions analytiques
+-- Dimensions
 CREATE TABLE dim_statut (
     statut_code TEXT PRIMARY KEY,
     statut_label TEXT NOT NULL,
@@ -102,13 +102,13 @@ CREATE TABLE dim_secteur (
     secteur_label TEXT NOT NULL
 );
 
--- Dans le MVP, region_name viendra de nom_loclt_consti 
+-- Region: source MVP = nom_loclt_consti
 CREATE TABLE dim_region (
     region_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     region_name TEXT NOT NULL UNIQUE
 );
 
--- 3) Table analytique centrale
+-- Table analytique
 CREATE TABLE entreprise_clean (
     neq TEXT PRIMARY KEY,
     nom_entreprise TEXT,
@@ -122,7 +122,7 @@ CREATE TABLE entreprise_clean (
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
--- 4) Index de base (jointures + filtres frequents)
+-- Index principaux
 CREATE INDEX idx_stg_nom_neq ON stg_nom(neq);
 CREATE INDEX idx_stg_etablissements_neq ON stg_etablissements(neq);
 CREATE INDEX idx_stg_entreprise_neq ON stg_entreprise(neq);
