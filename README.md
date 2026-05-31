@@ -56,16 +56,29 @@ Detailed assignment brief: `docs/ENONCE_PROJET_REQ.md`.
 - Reusable views for recurring analysis
 - Performance notes (EXPLAIN before/after indexes)
 
-## Results (to be updated)
-- Total enterprises processed: TBD
-- Active enterprises: TBD
-- Inactive enterprises ratio: TBD
-- Average business age: TBD
+## Results
+- Total enterprises processed: 2,903,373
+- Active enterprises (IM): 1,133,196 (39.03%)
+- Non-active enterprises: 1,770,177 (60.97%)
+- Null `date_constitution`: 1,193,645 (41.11%)
+- Rows in `vw_top_secteurs_par_region`: 1,863
+- Regions in `vw_age_moyen_par_region`: 771
 
-## Key Insights (to be updated)
-- Regional sector concentration findings: TBD
-- Business longevity patterns: TBD
-- Data quality improvements after cleaning: TBD
+## Key Insights
+- The active vs non-active split is imbalanced toward non-active entities (60.97%).
+- A significant share of companies has missing constitution dates (41.11%), which impacts longevity metrics.
+- The region and sector dimensions remain highly granular in the raw source, requiring normalization choices for reporting.
+
+## Portfolio Assets
+- Add SQL output screenshots in `docs/screenshots/`.
+- Add a short demo video link in this README (Loom/YouTube unlisted).
+- Presentation script template: `docs/PRESENTATION_VIDEO.md`.
+- Recommended screenshots:
+  - schema execution (`01_schema.sql`)
+  - ingestion controls (`02_ingestion.sql`)
+  - cleaning controls (`03_cleaning.sql`)
+  - analysis outputs (`04_analysis.sql`)
+  - explain analyze + view checks (`05_views_indexes.sql`)
 
 ## Francais
 
@@ -118,13 +131,26 @@ Enonce detaille du projet: `docs/ENONCE_PROJET_REQ.md`.
 - Vues reutilisables pour analyses recurrentes
 - Notes de performance (EXPLAIN avant/apres index)
 
-### Resultats (a mettre a jour)
-- Nombre total d entreprises traitees: TBD
-- Nombre d entreprises actives: TBD
-- Ratio d entreprises radiees: TBD
-- Age moyen des entreprises actives: TBD
+### Resultats
+- Nombre total d entreprises traitees: 2 903 373
+- Entreprises actives (IM): 1 133 196 (39,03 %)
+- Entreprises non actives: 1 770 177 (60,97 %)
+- Valeurs nulles sur `date_constitution`: 1 193 645 (41,11 %)
+- Lignes dans `vw_top_secteurs_par_region`: 1 863
+- Regions dans `vw_age_moyen_par_region`: 771
 
-### Insights cles (a mettre a jour)
-- Concentration sectorielle par region: TBD
-- Tendances de longevite des entreprises: TBD
-- Amelioration de la qualite des donnees apres nettoyage: TBD
+### Insights cles
+- La repartition actives vs non actives est fortement orientee vers les non actives (60,97 %).
+- Une part importante des dates de constitution est absente (41,11 %), ce qui influence les analyses de longevite.
+- Les dimensions region/secteur sont tres granulaires dans la source brute et demandent des choix de normalisation pour le reporting.
+
+### Assets Portfolio
+- Ajouter les captures SQL dans `docs/screenshots/`.
+- Ajouter un lien vers une video courte de demo (Loom/YouTube non liste).
+- Script de presentation: `docs/PRESENTATION_VIDEO.md`.
+- Captures recommandees:
+  - execution schema (`01_schema.sql`)
+  - controles ingestion (`02_ingestion.sql`)
+  - controles cleaning (`03_cleaning.sql`)
+  - sorties analyse (`04_analysis.sql`)
+  - explain analyze + controles des vues (`05_views_indexes.sql`)
