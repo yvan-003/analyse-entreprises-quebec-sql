@@ -10,7 +10,6 @@ English and French versions are available below.
 ### Project Overview
 SQL analytics project based on Quebec Enterprise Registry (REQ) open data.
 The objective is to build a reproducible economic profile of businesses by sector (SCIAN) and region.
-Detailed assignment brief: `docs/ENONCE_PROJET_REQ.md`.
 
 ## Business Objectives
 1. Identify the sectors that dominate each region.
@@ -72,7 +71,6 @@ Detailed assignment brief: `docs/ENONCE_PROJET_REQ.md`.
 ## Portfolio Assets
 - Add SQL output screenshots in `docs/screenshots/`.
 - Add a short demo video link in this README (Loom/YouTube unlisted).
-- Presentation script template: `docs/PRESENTATION_VIDEO.md`.
 - Recommended screenshots:
   - schema execution (`01_schema.sql`)
   - ingestion controls (`02_ingestion.sql`)
@@ -85,7 +83,6 @@ Detailed assignment brief: `docs/ENONCE_PROJET_REQ.md`.
 ### Contexte du projet
 Projet SQL base sur les donnees ouvertes du Registre des entreprises du Quebec (REQ).
 Objectif: produire un portrait economique reproductible des entreprises actives vs radiees par secteur (SCIAN) et par geographie.
-Enonce detaille du projet: `docs/ENONCE_PROJET_REQ.md`.
 
 ### Questions business
 1. Quels secteurs dominent par region ?
@@ -147,7 +144,6 @@ Enonce detaille du projet: `docs/ENONCE_PROJET_REQ.md`.
 ### Assets Portfolio
 - Ajouter les captures SQL dans `docs/screenshots/`.
 - Ajouter un lien vers une video courte de demo (Loom/YouTube non liste).
-- Script de presentation: `docs/PRESENTATION_VIDEO.md`.
 - Captures recommandees:
   - execution schema (`01_schema.sql`)
   - controles ingestion (`02_ingestion.sql`)
